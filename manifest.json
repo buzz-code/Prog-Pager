@@ -1,0 +1,20 @@
+{
+   "author": "hadasa.schechter@gmail.com",
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "js/main.js", "js/jquery-3.5.1.min.js" ],
+      "matches": [ "https://www.prog.co.il/threads/*", "https://prog.co.il/threads/*" ],
+      "run_at": "document_end"
+   } ],
+   "icons": {
+		"16": "images/icon_16.png",
+	    "48": "images/icon_48.png",
+	    "128": "images/icon_128.png"
+	},
+   "description": "This extension allows you to see a full thread in one page.",
+   "manifest_version": 2,
+   "name": "Prog Pager",
+   "permissions": [ "https://www.prog.co.il/threads/*", "https://prog.co.il/threads/*" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0"
+}
