@@ -39,9 +39,16 @@ function getThread() {
 		data.append(html);
 	}
 	function completeScraping() {
+		$('.globalAction').remove();
 		data.find('[data-widget-definition="xa_ams_latest_articles"],[data-position="big_main_banner"],.p-body-sidebar,.block.block--messages .block-outer,form,.blockMessage.blockMessage--none,.p-breadcrumbs--bottom,footer.p-footer:not(:last),header.p-header:not(:first),.p-navSticky:not(:first),.p-sectionLinks:not(:first),.p-breadcrumbs:not(:first),.p-body-header:not(:first)').remove();
-		$(document.body).replaceWith(data);
-		window.print();
+		var win = window.open("", Math.random(), "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+		win.document.body.innerHTML = '<base href="' + window.location.href + '">';
+		win.document.body.innerHTML += '<style>body {direction: rtl}</style>';
+		win.document.body.innerHTML += data.html();
+		win.document.querySelectorAll('.message-main').forEach(function (item){item.style.height = 'unset';})
+		win.focus();
+		win.print();
+		win.close();
 	}
 	
 	return false;
