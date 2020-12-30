@@ -11,7 +11,7 @@
 	    "48": "images/icon_48.png",
 	    "128": "images/icon_128.png"
 	},
-   "description": "This extension allows you to see a full thread in one page.",
+   "description": "פשוט וקל- להדפיס אשכול שלם בלחיצה אחת",
    "manifest_version": 2,
    "name": "Prog Pager",
    "permissions": [ "*://*.prog.co.il/threads/*" ],
