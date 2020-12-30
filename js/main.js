@@ -41,6 +41,7 @@ function getThread() {
 	function completeScraping() {
 		data.find('[data-widget-definition="xa_ams_latest_articles"],[data-position="big_main_banner"],.p-body-sidebar,.block.block--messages .block-outer,form,.blockMessage.blockMessage--none,.p-breadcrumbs--bottom,footer.p-footer:not(:last),header.p-header:not(:first),.p-navSticky:not(:first),.p-sectionLinks:not(:first),.p-breadcrumbs:not(:first),.p-body-header:not(:first)').remove();
 		$(document.body).replaceWith(data);
+		window.print();
 	}
 	
 	return false;
