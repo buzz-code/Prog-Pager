@@ -1,3 +1,9 @@
+//hide ads
+var style = document.createElement('style');
+style.innerHTML = '[data-widget-definition="xa_ams_latest_articles"],[data-position="big_main_banner"],.p-body-sidebar,.samBannerUnit,img#register {display: none !important}';
+document.head.appendChild(style);
+
+//add show-all button
 var buttonGroup = document.querySelector('.block.block--messages .block-outer .block-outer-opposite .buttonGroup');
 var showAllButton = document.createElement('a');
 showAllButton.href = '#';
@@ -9,6 +15,7 @@ showAllButton.appendChild(showAllText);
 showAllButton.onclick = getThread;
 buttonGroup.insertBefore(showAllButton, buttonGroup.firstChild);
 
+//function to generate pdf
 function getThread() {
 	var threadId = location.href.match(/threads\/[^\.]*\.(\d*)/)[1];
 	var url = location.origin + '/threads/' + threadId;
