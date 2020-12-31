@@ -48,11 +48,12 @@ function getThread() {
 	function completeScraping() {
 		$('.globalAction').remove();
 		data.find('footer.p-footer:not(:last),header.p-header:not(:first),.p-navSticky:not(:first),.p-sectionLinks:not(:first),.p-breadcrumbs:not(:first),.p-body-header:not(:first)').remove();
-		var win = window.open("", Math.random(), "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
-		win.document.body.innerHTML = data.html();
-		win.focus();
-		win.print();
-		win.close();
+		document.body.innerHTML = data.html();
+		// var win = window.open("", Math.random(), "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes");
+		// win.document.write(data.html());
+		// win.document.close();
+		// win.focus();
+		// win.onload = function(){win.print();win.close();};
 	}
 	
 	return false;
