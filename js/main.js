@@ -1,7 +1,9 @@
 //hide ads
-var style = document.createElement('style');
-style.innerHTML = '[data-widget-definition="xa_ams_latest_articles"],[data-position="big_main_banner"],.p-body-sidebar,.samBannerUnit,img#register {display: none !important}';
-document.head.appendChild(style);
+if (localStorage['disable-ads'] === 'true') {
+	var style = document.createElement('style');
+	style.innerHTML = '[data-widget-definition="xa_ams_latest_articles"],[data-position="big_main_banner"],.p-body-sidebar,.samBannerUnit,img#register {display: none !important}';
+	document.head.appendChild(style);
+}
 
 //add show-all button
 var buttonGroup = document.querySelector('.block.block--messages .block-outer .block-outer-opposite .buttonGroup');
