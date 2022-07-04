@@ -1,6 +1,25 @@
-import { printLine } from './modules/print';
+import { isThread, threadId, lastPageNumber } from './modules/metadata';
+import { addButton, getPostsContainer, hideLoader, removeAllChildrenOfElement, removeButtons, removePager, showLoader } from './modules/html';
+import { getPageContent } from './modules/utils';
 
-console.log('Content script works!');
-console.log('Must reload extension for modifications to take effect.');
+if (isThread) {
+    addButton('הצג את כל האשכול', showAllPages);
+}
 
-printLine("Using the 'printLine' function from the Print Module");
+async function showAllPages() {
+    showLoader();
+    let pageNumber = 1;
+    let allPagesContent = [];
+    while (pageNumber <= lastPageNumber) {
+        const pageContent = await getPageContent(threadId, pageNumber);
+        allPagesContent.push(pageContent);
+        pageNumber++;
+    }
+
+    hideLoader();
+    removePager();
+    removeButtons();
+    const postsContainer = getPostsContainer();
+    removeAllChildrenOfElement(postsContainer);
+    postsContainer.innerHTML = allPagesContent.join('');
+}
