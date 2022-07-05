@@ -19,10 +19,12 @@ jobs:
       - name: Build extension
         run: npm run build
 
-      - name: Upload & release
-        uses: mnao305/chrome-extension-upload@2.2.0
+      - name: Upload to Chrome Webstore
+        uses: trmcnvn/chrome-addon@master
         with:
-          file-path: build.zip
-          extension-id: ilgbbbhicjkjoojifihdbfeagpmmemlo
+          zip: build.zip
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish-target: trustedTesters
+        continue-on-error: true
