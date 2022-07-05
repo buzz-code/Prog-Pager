@@ -16,15 +16,13 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
-      - name: Publish extension
+      - name: Build extension
         run: npm run build
 
-      - name: Upload to Chrome Webstore
-        uses: trmcnvn/chrome-addon@master
+      - name: Upload & release
+        uses: mnao305/chrome-extension-upload@2.2.0
         with:
-          extension: ilgbbbhicjkjoojifihdbfeagpmmemlo
-          zip: build.zip
+          file-path: build.zip
+          extension-id: ilgbbbhicjkjoojifihdbfeagpmmemlo
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
-          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-        continue-on-error: true
