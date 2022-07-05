@@ -4,7 +4,8 @@ process.env.NODE_ENV = 'production';
 process.env.ASSET_PATH = '/';
 
 var webpack = require('webpack'),
-  config = require('../webpack.config');
+  config = require('../webpack.config'),
+  { zip } = require('zip-a-folder');
 
 delete config.chromeExtensionBoilerplate;
 
@@ -12,4 +13,5 @@ config.mode = 'production';
 
 webpack(config, function (err) {
   if (err) throw err;
+  zip(config.output.path, config.output.path + '.zip');
 });
