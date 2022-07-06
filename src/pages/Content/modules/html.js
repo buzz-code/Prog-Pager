@@ -14,6 +14,13 @@ export const addButton = (text, onClickHandler) => {
     buttonGroup.insertBefore(newButton, buttonGroup.firstChild);
 }
 
+export const removeBottomFixerIfExists = () => {
+    const bottomFixer = document.querySelector('.u-bottomFixer');
+    if (bottomFixer) {
+        bottomFixer.remove();
+    }
+}
+
 export const showLoader = () => {
     const loader = document.createElement('span');
     loader.className = 'globalAction is-active';
