@@ -10,13 +10,11 @@ removeBottomFixerIfExists();
 
 async function showAllPages() {
     showLoader();
-    let pageNumber = 1;
-    let allPagesContent = [];
-    while (pageNumber <= lastPageNumber) {
-        const pageContent = await getPageContent(threadId, pageNumber);
-        allPagesContent.push(pageContent);
-        pageNumber++;
-    }
+    let allPagesContent = await Promise.all(
+        new Array(lastPageNumber)
+            .fill(0)
+            .map((item, index) => getPageContent(threadId, index + 1))
+    );
 
     hideLoader();
     removePager();
