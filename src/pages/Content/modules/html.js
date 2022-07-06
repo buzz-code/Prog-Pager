@@ -38,10 +38,10 @@ export const removeAllChildrenOfElement = (element) => {
 
 export const getPostsContainer = () => document.querySelector('.block-container.lbContainer');
 
-export const removePager = ()=>{
-    document.querySelector('.pageNavWrapper').remove();
+export const removePager = () => {
+    document.querySelectorAll('.pageNavWrapper').forEach(el => el.remove());
 }
 
-export const removeButtons = ()=>{
+export const removeButtons = () => {
     document.querySelector('.buttonGroup').remove();
 }
