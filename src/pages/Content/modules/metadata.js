@@ -17,3 +17,11 @@ export const lastPageNumber = isThread
         )
         : 1
     : null;
+
+export const currentPageNumber = isThread
+    ? window.location.href.match(/page-(\d*)/)[1]
+        ? Number(
+            window.location.href.match(/page-(\d*)/)[1]
+        )
+        : 1
+    : null;
