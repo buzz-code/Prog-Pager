@@ -19,7 +19,7 @@ export const lastPageNumber = isThread
     : null;
 
 export const currentPageNumber = isThread
-    ? window.location.href.match(/page-(\d*)/)[1]
+    ? window.location.href.match(/page-(\d*)/)
         ? Number(
             window.location.href.match(/page-(\d*)/)[1]
         )
