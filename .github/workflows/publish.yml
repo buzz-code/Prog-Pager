@@ -1,0 +1,31 @@
+name: Build and Publish
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Upload to Chrome Webstore
+        uses: trmcnvn/chrome-addon@master
+        with:
+          extension: ffkckofalbomdjlmlebfibhgceaifkei
+          zip: build.zip
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish-target: trustedTesters
+        continue-on-error: true
