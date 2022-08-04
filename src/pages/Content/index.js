@@ -1,5 +1,5 @@
 import { isThread, threadId, lastPageNumber, currentPageNumber } from './modules/metadata';
-import { addButton, getPostsContainer, hideLoader, removeAllChildrenOfElement, removeBottomFixerIfExists, removeButtons, removePager, showLoader } from './modules/html';
+import { addButton, getPostsContainer, hideLoader, removeBottomFixerIfExists, removeButtons, removePager, showLoader } from './modules/html';
 import { getPageContent } from './modules/utils';
 
 if (isThread) {
@@ -17,10 +17,10 @@ async function showAllPages() {
             .map((item, index) => getPageContent(threadId, index + 1))
     );
 
-    preProcessPage();
     const postsContainer = getPostsContainer();
-    removeAllChildrenOfElement(postsContainer);
+    preProcessPage(postsContainer);
     postsContainer.innerHTML = allPagesContent.join('');
+    postProcessPage(postsContainer);
 }
 
 async function showAllFromHere() {
@@ -31,13 +31,18 @@ async function showAllFromHere() {
             .map((item, index) => getPageContent(threadId, index + currentPageNumber + 1))
     );
 
-    preProcessPage();
     const postsContainer = getPostsContainer();
+    preProcessPage(postsContainer);
     postsContainer.innerHTML += allPagesContent.join('');
+    postProcessPage(postsContainer);
 }
 
-function preProcessPage() {
+function preProcessPage(postsContainer) {
     hideLoader();
     removePager();
     removeButtons();
+}
+
+function postProcessPage(postsContainer) {
+    XF.activate(document);
 }
