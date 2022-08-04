@@ -25,3 +25,7 @@ export const currentPageNumber = isThread
         )
         : 1
     : null;
+
+export const userName = document.querySelector('.p-account .p-navgroup-linkText')
+    ? document.querySelector('.p-account .p-navgroup-linkText').textContent
+    : 'אנונימי';
