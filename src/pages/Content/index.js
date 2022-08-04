@@ -17,9 +17,7 @@ async function showAllPages() {
             .map((item, index) => getPageContent(threadId, index + 1))
     );
 
-    hideLoader();
-    removePager();
-    removeButtons();
+    preProcessPage();
     const postsContainer = getPostsContainer();
     removeAllChildrenOfElement(postsContainer);
     postsContainer.innerHTML = allPagesContent.join('');
@@ -33,9 +31,13 @@ async function showAllFromHere() {
             .map((item, index) => getPageContent(threadId, index + currentPageNumber + 1))
     );
 
+    preProcessPage();
+    const postsContainer = getPostsContainer();
+    postsContainer.innerHTML += allPagesContent.join('');
+}
+
+function preProcessPage() {
     hideLoader();
     removePager();
     removeButtons();
-    const postsContainer = getPostsContainer();
-    postsContainer.innerHTML += allPagesContent.join('');
 }
