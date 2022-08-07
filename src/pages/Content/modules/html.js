@@ -63,3 +63,9 @@ export const addWaterMarkToPosts = (postsContainer) => {
         el.after(attribution);
     });
 }
+
+export const hideAdsIfProgrammer = () => {
+    if (localStorage.getItem('disable-ads') === 'true') {
+        document.body.classList.add('hide-ads');
+    }
+}

@@ -1,5 +1,5 @@
 import { isThread, threadId, lastPageNumber, currentPageNumber } from './modules/metadata';
-import { addButton, addWaterMarkToPosts, getPostsContainer, hideLoader, removeBottomFixerIfExists, removeButtons, removePager, showLoader } from './modules/html';
+import { addButton, addWaterMarkToPosts, getPostsContainer, hideAdsIfProgrammer, hideLoader, removeBottomFixerIfExists, removeButtons, removePager, showLoader } from './modules/html';
 import { getPageContent } from './modules/utils';
 
 if (isThread) {
@@ -8,6 +8,8 @@ if (isThread) {
 }
 
 removeBottomFixerIfExists();
+
+hideAdsIfProgrammer();
 
 async function showAllPages() {
     showLoader();
