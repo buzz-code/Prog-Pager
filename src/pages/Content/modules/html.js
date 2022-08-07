@@ -1,3 +1,5 @@
+import { userName } from "./metadata";
+
 export const addButton = (text, onClickHandler) => {
     var buttonGroup = document.querySelector(".p-body-content .buttonGroup");
     var newButton = document.createElement("a");
@@ -51,4 +53,13 @@ export const removePager = () => {
 
 export const removeButtons = () => {
     document.querySelector('.buttonGroup').remove();
+}
+
+export const addWaterMarkToPosts = (postsContainer) => {
+    postsContainer.querySelectorAll('.message-attribution-main').forEach(el => {
+        const attribution = document.createElement('span');
+        attribution.className = 'watermark';
+        attribution.textContent = ' הופק על ידי ' + userName;
+        el.after(attribution);
+    });
 }

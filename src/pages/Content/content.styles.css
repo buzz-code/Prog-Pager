@@ -1,3 +1,14 @@
 .samBannerUnit1 {
   display: none !important;
 }
+
+.message-main {
+  position: relative;
+}
+
+.message-attribution .watermark {
+  position: absolute;
+  font-size: 30px;
+  top: 3px;
+  opacity: 0.3;
+}
