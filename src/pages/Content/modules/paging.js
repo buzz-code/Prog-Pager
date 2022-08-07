@@ -1,0 +1,42 @@
+import { threadId, lastPageNumber, currentPageNumber } from './metadata';
+import { addWaterMarkToPosts, getPostsContainer, hideLoader, removeButtons, removePager, showLoader } from './html';
+import { getPageContent } from './utils';
+
+export async function showAllPages() {
+    showLoader();
+    let allPagesContent = await Promise.all(
+        new Array(lastPageNumber)
+            .fill(0)
+            .map((item, index) => getPageContent(threadId, index + 1))
+    );
+
+    const postsContainer = getPostsContainer();
+    preProcessPage(postsContainer);
+    postsContainer.innerHTML = allPagesContent.join('');
+    postProcessPage(postsContainer);
+}
+
+export async function showAllFromHere() {
+    showLoader();
+    let allPagesContent = await Promise.all(
+        new Array(lastPageNumber - currentPageNumber)
+            .fill(0)
+            .map((item, index) => getPageContent(threadId, index + currentPageNumber + 1))
+    );
+
+    const postsContainer = getPostsContainer();
+    preProcessPage(postsContainer);
+    postsContainer.innerHTML += allPagesContent.join('');
+    postProcessPage(postsContainer);
+}
+
+function preProcessPage(postsContainer) {
+    hideLoader();
+    removePager();
+    removeButtons();
+}
+
+function postProcessPage(postsContainer) {
+    addWaterMarkToPosts(postsContainer);
+    XF.activate(document);
+}
