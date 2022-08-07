@@ -2,6 +2,8 @@ import { threadId, lastPageNumber, currentPageNumber } from './metadata';
 import { addWaterMarkToPosts, getPostsContainer, hideLoader, removeButtons, removePager, showLoader } from './html';
 import { getPageContent } from './utils';
 
+document.documentElement.setAttribute('ondurationchange', 'XF.activate(document); return false');
+
 export async function showAllPages() {
     showLoader();
     let allPagesContent = await Promise.all(
@@ -38,5 +40,5 @@ function preProcessPage(postsContainer) {
 
 function postProcessPage(postsContainer) {
     addWaterMarkToPosts(postsContainer);
-    XF.activate(document);
+    document.documentElement.dispatchEvent(new CustomEvent('durationchange'));
 }
