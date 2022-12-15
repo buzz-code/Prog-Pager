@@ -1,44 +1,56 @@
 import { threadId, lastPageNumber, currentPageNumber } from './metadata';
-import { addWaterMarkToPosts, getPostsContainer, hideLoader, removeButtons, removePager, showLoader } from './html';
+import {
+  addWaterMarkToPosts,
+  getPostsContainer,
+  hideLoader,
+  removeButtons,
+  removePager,
+  showLoader,
+} from './html';
 import { getPageContent } from './utils';
 
-document.documentElement.setAttribute('ondurationchange', 'XF.activate(document); return false');
+document.documentElement.setAttribute(
+  'ondurationchange',
+  'XF.activate(document); return false'
+);
 
 export async function showAllPages() {
-    showLoader();
-    let allPagesContent = await Promise.all(
-        new Array(lastPageNumber)
-            .fill(0)
-            .map((item, index) => getPageContent(threadId, index + 1))
-    );
+  showLoader();
+  let allPagesContent = await Promise.all(
+    new Array(lastPageNumber)
+      .fill(0)
+      .map((item, index) => getPageContent(threadId, index + 1))
+  );
 
-    const postsContainer = getPostsContainer();
-    preProcessPage(postsContainer);
-    postsContainer.innerHTML = allPagesContent.join('');
-    postProcessPage(postsContainer);
+  const postsContainer = getPostsContainer();
+  preProcessPage(postsContainer);
+  postsContainer.innerHTML = allPagesContent.join('');
+  postProcessPage(postsContainer);
 }
 
 export async function showAllFromHere() {
-    showLoader();
-    let allPagesContent = await Promise.all(
-        new Array(lastPageNumber - currentPageNumber)
-            .fill(0)
-            .map((item, index) => getPageContent(threadId, index + currentPageNumber + 1))
-    );
+  showLoader();
+  let allPagesContent = await Promise.all(
+    new Array(lastPageNumber - currentPageNumber)
+      .fill(0)
+      .map((item, index) =>
+        getPageContent(threadId, index + currentPageNumber + 1)
+      )
+  );
 
-    const postsContainer = getPostsContainer();
-    preProcessPage(postsContainer);
-    postsContainer.innerHTML += allPagesContent.join('');
-    postProcessPage(postsContainer);
+  const postsContainer = getPostsContainer();
+  preProcessPage(postsContainer);
+  postsContainer.innerHTML += allPagesContent.join('');
+  postProcessPage(postsContainer);
 }
 
 function preProcessPage(postsContainer) {
-    hideLoader();
-    removePager();
-    removeButtons();
+  hideLoader();
+  removePager();
+  removeButtons();
 }
 
 function postProcessPage(postsContainer) {
-    addWaterMarkToPosts(postsContainer);
-    document.documentElement.dispatchEvent(new CustomEvent('durationchange'));
+  addWaterMarkToPosts(postsContainer);
+  document.documentElement.dispatchEvent(new CustomEvent('durationchange'));
 }
