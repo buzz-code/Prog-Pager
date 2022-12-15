@@ -74,14 +74,10 @@ export const hideAdsIfProgrammer = () => {
 };
 
 export const getValueOfPageSelector = (inputName) => {
-  let value = document.querySelector(
-    '[name=' + inputName + ']:checked'
-  ).value;
+  let value = document.querySelector('[name=' + inputName + ']:checked').value;
 
   if (value === '-1') {
-    value = document.querySelector(
-      '[name=' + inputName + 'Custom]'
-    ).value;
+    value = document.querySelector('[name=' + inputName + 'Custom]').value;
   }
 
   return Number(value);
@@ -142,4 +138,13 @@ export const attachPageSelectorDropdown = () => {
   var buttonGroup = document.querySelector('.p-body-content .buttonGroup');
   buttonGroup.style.position = 'relative';
   buttonGroup.appendChild(dropdownMenu);
+};
+
+export const bindLogicToButtons = (selector, onClickHandler) => {
+  document.querySelectorAll(selector).forEach((button) => {
+    button.onclick = function (event) {
+      onClickHandler.bind(this, event)();
+      return false;
+    };
+  });
 };

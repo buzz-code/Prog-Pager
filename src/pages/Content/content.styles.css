@@ -42,3 +42,10 @@ body.hide-ads .samBannerUnit1 {
 .hidden {
   display: none;
 }
+
+.error-container {
+  padding: 12px;
+  border: 1px solid #d8d8d8;
+  background: #f5f5f5;
+  margin: 12px 0;
+}

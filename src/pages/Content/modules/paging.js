@@ -7,6 +7,7 @@ import {
   removeButtons,
   removePager,
   showLoader,
+  bindLogicToButtons,
 } from './html';
 import { getPageContent } from './utils';
 
@@ -71,4 +72,25 @@ function preProcessPage(postsContainer) {
 function postProcessPage(postsContainer) {
   addWaterMarkToPosts(postsContainer);
   document.documentElement.dispatchEvent(new CustomEvent('durationchange'));
+  setTimeout(() => {
+    bindLogicToButtons('[id^="retry-button"]', reloadPageContent);
+  }, 0);
 }
+
+export const reloadPageContent = async () => {
+  const button = event.target;
+  const { thread_id, page_number } = button.dataset;
+  try {
+    button.parentElement
+      .querySelector('.loader')
+      .classList.toggle('hidden', false);
+    const pageContent = await getPageContent(thread_id, page_number);
+    button.parentNode.outerHTML = pageContent;
+    const postsContainer = getPostsContainer();
+    postProcessPage(postsContainer);
+  } catch {
+    button.parentElement
+      .querySelector('.loader')
+      .classList.toggle('hidden', true);
+  }
+};
