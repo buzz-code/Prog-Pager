@@ -2,6 +2,7 @@ import { threadId, lastPageNumber, currentPageNumber } from './metadata';
 import {
   addWaterMarkToPosts,
   getPostsContainer,
+  getValueOfPageSelector,
   hideLoader,
   removeButtons,
   removePager,
@@ -41,6 +42,23 @@ export async function showAllFromHere() {
   const postsContainer = getPostsContainer();
   preProcessPage(postsContainer);
   postsContainer.innerHTML += allPagesContent.join('');
+  postProcessPage(postsContainer);
+}
+
+export async function showAllByParams() {
+  const firstPage = getValueOfPageSelector('firstPage');
+  const lastPage = getValueOfPageSelector('lastPage');
+
+  showLoader();
+  let allPagesContent = await Promise.all(
+    new Array(lastPage - firstPage + 1)
+      .fill(0)
+      .map((item, index) => getPageContent(threadId, index + firstPage))
+  );
+
+  const postsContainer = getPostsContainer();
+  preProcessPage(postsContainer);
+  postsContainer.innerHTML = allPagesContent.join('');
   postProcessPage(postsContainer);
 }
 

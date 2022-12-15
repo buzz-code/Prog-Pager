@@ -1,4 +1,5 @@
-import { userName } from './metadata';
+import { currentPageNumber, lastPageNumber, userName } from './metadata';
+import { showAllByParams } from './paging';
 
 export const addButton = (text, onClickHandler) => {
   var buttonGroup = document.querySelector('.p-body-content .buttonGroup');
@@ -14,6 +15,7 @@ export const addButton = (text, onClickHandler) => {
     return false;
   };
   buttonGroup.insertBefore(newButton, buttonGroup.firstChild);
+  return newButton;
 };
 
 export const removeBottomFixerIfExists = () => {
@@ -69,4 +71,75 @@ export const hideAdsIfProgrammer = () => {
   if (localStorage.getItem('disable-ads') === 'true') {
     document.body.classList.add('hide-ads');
   }
+};
+
+export const getValueOfPageSelector = (inputName) => {
+  let value = document.querySelector(
+    '[name=' + inputName + ']:checked'
+  ).value;
+
+  if (value === '-1') {
+    value = document.querySelector(
+      '[name=' + inputName + 'Custom]'
+    ).value;
+  }
+
+  return Number(value);
+};
+
+export const toggleDropdownMenu = () => {
+  document.getElementById('dropdown-menu').classList.toggle('hidden');
+};
+
+export const attachPageSelectorDropdown = () => {
+  const dropdownMenu = document.createElement('div');
+  dropdownMenu.id = 'dropdown-menu';
+  dropdownMenu.className = 'dropdown-menu hidden';
+  dropdownMenu.innerHTML = `
+    <div class="page-selector-wrapper">
+        <div>בחר עמוד התחלה</div>
+        <label>
+            <input name="firstPage" type="radio" value="1"/>
+             עמוד ראשון
+       </label>
+        <label>
+            <input name="firstPage" type="radio" value="${currentPageNumber}" checked/>
+            עמוד נוכחי (${currentPageNumber})
+        </label>
+        <label>
+            <input name="firstPage" type="radio" value="-1"/>
+            בחירת עמוד
+            <input name="firstPageCustom" type="number" min="1" max="${lastPageNumber}"/>
+        </label>
+    </div>
+    <div class="page-selector-wrapper">
+        <div>בחר עמוד סיום</div>
+        <label>
+            <input name="lastPage" type="radio" value="${currentPageNumber}"/>
+            עמוד נוכחי (${currentPageNumber})
+        </label>
+        <label>
+            <input name="lastPage" type="radio" value="${lastPageNumber}" checked/>
+             עמוד אחרון
+       </label>
+        <label>
+            <input name="lastPage" type="radio" value="-1"/>
+            בחירת עמוד
+            <input name="lastPageCustom" type="number" min="1" max="${lastPageNumber}"/>
+        </label>
+    </div>
+    `;
+
+  const newButton = document.createElement('button');
+  newButton.textContent = 'הצג עמודים נבחרים';
+  newButton.onclick = function () {
+    showAllByParams();
+    toggleDropdownMenu();
+    return false;
+  };
+  dropdownMenu.appendChild(newButton);
+
+  var buttonGroup = document.querySelector('.p-body-content .buttonGroup');
+  buttonGroup.style.position = 'relative';
+  buttonGroup.appendChild(dropdownMenu);
 };

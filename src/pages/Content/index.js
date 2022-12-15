@@ -1,14 +1,18 @@
 import { isThread } from './modules/metadata';
 import {
   addButton,
+  attachPageSelectorDropdown,
   hideAdsIfProgrammer,
   removeBottomFixerIfExists,
+  toggleDropdownMenu,
 } from './modules/html';
-import { showAllFromHere, showAllPages } from './modules/paging';
+import { showAllFromHere } from './modules/paging';
 
 if (isThread) {
-  addButton('הצג את כל האשכול', showAllPages);
   addButton('הצג הכל מכאן ולהבא', showAllFromHere);
+  addButton('הצג עמודים', toggleDropdownMenu);
+
+  attachPageSelectorDropdown();
 }
 
 removeBottomFixerIfExists();
