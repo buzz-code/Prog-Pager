@@ -24,10 +24,10 @@ export async function showAllPages() {
       .map((item, index) => getPageContent(threadId, index + 1))
   );
 
+  preProcessPage();
   const postsContainer = getPostsContainer();
-  preProcessPage(postsContainer);
   postsContainer.innerHTML = allPagesContent.join('');
-  postProcessPage(postsContainer);
+  postProcessPage();
 }
 
 export async function showAllFromHere() {
@@ -40,10 +40,10 @@ export async function showAllFromHere() {
       )
   );
 
+  preProcessPage();
   const postsContainer = getPostsContainer();
-  preProcessPage(postsContainer);
   postsContainer.innerHTML += allPagesContent.join('');
-  postProcessPage(postsContainer);
+  postProcessPage();
 }
 
 export async function showAllByParams() {
@@ -57,19 +57,20 @@ export async function showAllByParams() {
       .map((item, index) => getPageContent(threadId, index + firstPage))
   );
 
+  preProcessPage();
   const postsContainer = getPostsContainer();
-  preProcessPage(postsContainer);
   postsContainer.innerHTML = allPagesContent.join('');
-  postProcessPage(postsContainer);
+  postProcessPage();
 }
 
-function preProcessPage(postsContainer) {
+function preProcessPage() {
   hideLoader();
   removePager();
   removeButtons();
 }
 
-function postProcessPage(postsContainer) {
+function postProcessPage() {
+  const postsContainer = getPostsContainer();
   addWaterMarkToPosts(postsContainer);
   document.documentElement.dispatchEvent(new CustomEvent('durationchange'));
   setTimeout(() => {
@@ -86,8 +87,7 @@ export const reloadPageContent = async () => {
       .classList.toggle('hidden', false);
     const pageContent = await getPageContent(thread_id, page_number);
     button.parentNode.outerHTML = pageContent;
-    const postsContainer = getPostsContainer();
-    postProcessPage(postsContainer);
+    postProcessPage();
   } catch {
     button.parentElement
       .querySelector('.loader')
