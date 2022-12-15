@@ -8,7 +8,7 @@ export const getUrlForThreadAndPage = (threadId, pageNumber) => {
   return getBaseThreadUrl(threadId) + '/page-' + pageNumber;
 };
 
-export const getPageContent = async (threadId, pageNumber) => {
+const getPageContentInner = async (threadId, pageNumber) => {
   try {
     const pageUrl = getUrlForThreadAndPage(threadId, pageNumber);
     const res = await fetch(pageUrl);
@@ -33,4 +33,14 @@ export const getPageContent = async (threadId, pageNumber) => {
         </div>
     `;
   }
+};
+
+export const getPageContent = async (threadId, pageNumber) => {
+  const pageContent = await getPageContentInner(threadId, pageNumber);
+  return `
+    <div class="page-wrapper" data-page_number="${pageNumber}">
+      <div class="page-number-indicator">עמוד ${pageNumber}</div>
+      ${pageContent}
+    </div>
+  `;
 };
