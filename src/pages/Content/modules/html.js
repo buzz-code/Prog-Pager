@@ -83,6 +83,10 @@ export const getValueOfPageSelector = (inputName) => {
   return Number(value);
 };
 
+export const getValueOfCheckbox = (inputName) => {
+  return document.querySelector('[name=' + inputName + ']').checked;
+};
+
 export const toggleDropdownMenu = () => {
   document.getElementById('dropdown-menu').classList.toggle('hidden');
 };
@@ -117,12 +121,18 @@ export const attachPageSelectorDropdown = () => {
         <label>
             <input name="lastPage" type="radio" value="${lastPageNumber}" checked/>
              עמוד אחרון
-       </label>
+        </label>
         <label>
             <input name="lastPage" type="radio" value="-1"/>
             בחירת עמוד
             <input name="lastPageCustom" type="number" min="1" max="${lastPageNumber}"/>
         </label>
+    </div>
+    <div class="remove-pagination-wrapper">
+      <label>
+          <input name="isRemovePager" type="checkbox" checked/>
+          הסר דפדוף
+      </label>
     </div>
     `;
 

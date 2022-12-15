@@ -8,6 +8,7 @@ import {
   removePager,
   showLoader,
   bindLogicToButtons,
+  getValueOfCheckbox,
 } from './html';
 import { getPageContent } from './utils';
 
@@ -49,6 +50,7 @@ export async function showAllFromHere() {
 export async function showAllByParams() {
   const firstPage = getValueOfPageSelector('firstPage');
   const lastPage = getValueOfPageSelector('lastPage');
+  const isRemovePager = getValueOfCheckbox('isRemovePager');
 
   showLoader();
   let allPagesContent = await Promise.all(
@@ -57,15 +59,15 @@ export async function showAllByParams() {
       .map((item, index) => getPageContent(threadId, index + firstPage))
   );
 
-  preProcessPage();
+  preProcessPage(isRemovePager);
   const postsContainer = getPostsContainer();
   postsContainer.innerHTML = allPagesContent.join('');
   postProcessPage();
 }
 
-function preProcessPage() {
+function preProcessPage(isRemovePager = false) {
   hideLoader();
-  removePager();
+  isRemovePager && removePager();
   removeButtons();
 }
 

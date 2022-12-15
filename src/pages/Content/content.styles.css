@@ -35,6 +35,10 @@ body.hide-ads .samBannerUnit1 {
   padding: 4px;
 }
 
+.remove-pagination-wrapper {
+  width: 100%;
+}
+
 .dropdown-menu button {
   flex-basis: 100%;
 }
