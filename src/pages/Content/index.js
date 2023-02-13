@@ -15,6 +15,7 @@ if (isThread) {
   attachPageSelectorDropdown();
 }
 
-removeBottomFixerIfExists();
+// apparently this removes management area
+// removeBottomFixerIfExists();
 
 hideAdsIfProgrammer();
