@@ -2,7 +2,7 @@
   "author": "mashkifa.mehatsad@gmail.com",
   "manifest_version": 3,
   "name": "Prog Pager",
-  "description": "פשוט וקל להדפיס אשכול שלם בלחיצה אחת",
+  "description": "פשוט וקל לצפות באשכול שלם בלחיצה אחת",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
   "action": {
