@@ -48,8 +48,8 @@ export async function showAllFromHere() {
 }
 
 export async function showAllByParams() {
-  const firstPage = getValueOfPageSelector('firstPage');
-  const lastPage = getValueOfPageSelector('lastPage');
+  const firstPage = Math.max(0, getValueOfPageSelector('firstPage'));
+  const lastPage = Math.min(lastPageNumber, getValueOfPageSelector('lastPage'));
   const isRemovePager = getValueOfCheckbox('isRemovePager');
 
   showLoader();
